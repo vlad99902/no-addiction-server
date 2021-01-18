@@ -1,10 +1,13 @@
-const getAllUsers = require('../db/users');
+const services = require('../services/index');
 
 class UsersController {
   async getAllUsers(req, res) {
-    const users = await getAllUsers();
-
-    res.json(users.rows);
+    try {
+      const users = await services.getAllUsers();
+      res.json(users.rows);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
 }
 
