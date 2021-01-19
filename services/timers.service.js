@@ -17,7 +17,7 @@ async function getCurrentTimer() {
       return { message: `No current timer for user userid` };
     }
 
-    return currentTimer.rows;
+    return currentTimer.rows[0];
   } catch (error) {
     throw new Error('Get current timer server error');
   }

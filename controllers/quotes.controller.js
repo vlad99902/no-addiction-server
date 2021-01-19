@@ -1,9 +1,16 @@
 const services = require('../services');
-
+const connection = require('../db/connect');
 class QuotesController {
   async getAllQuotes(req, res) {
     try {
-      const quotes = await services.getAllQuotes();
+      const isBad = req.query.isbad;
+      let quotes;
+      if (isBad !== undefined) {
+        quotes = await services.getAllBadOrNotQuotes(isBad);
+      } else {
+        quotes = await services.getAllQuotes();
+      }
+
       res.send(quotes);
     } catch (error) {
       res.status(500).send(error);
@@ -11,10 +18,9 @@ class QuotesController {
   }
 
   async getAllBadOrNotQuotes(req, res) {
-    console.log('gbplf');
     try {
-      const isBad = req.query.isbad;
-      console.log(isBad);
+      const isBad = req.params.isbad;
+      console.log(req.params);
       const quotes = await services.getAllBadOrNotQuotes(isBad);
       res.send(quotes);
     } catch (error) {
