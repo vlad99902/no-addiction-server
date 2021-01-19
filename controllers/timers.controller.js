@@ -1,4 +1,4 @@
-const services = require('../services/index');
+const services = require('../services');
 
 class TimersController {
   async getAllTimers(req, res) {

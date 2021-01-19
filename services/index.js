@@ -2,7 +2,15 @@ const {
   getAllTimers,
   getCurrentTimer,
   getLastTimer,
-} = require('./timers.services');
-const { getAllUsers } = require('./users.services');
+} = require('./timers.service');
+const { getAllUsers } = require('./users.service');
+const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
 
-module.exports = { getAllUsers, getAllTimers, getCurrentTimer, getLastTimer };
+module.exports = {
+  getAllUsers,
+  getAllTimers,
+  getCurrentTimer,
+  getLastTimer,
+  getAllQuotes,
+  getAllBadOrNotQuotes,
+};

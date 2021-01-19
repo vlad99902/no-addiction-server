@@ -1,1 +1,0 @@
-INSERT INTO "NoAddiction".categories (_id, name) VALUES (1, 'Alcohol');
