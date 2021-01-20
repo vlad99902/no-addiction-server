@@ -17,6 +17,35 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: NoAddiction; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "NoAddiction" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'C';
+
+
+ALTER DATABASE "NoAddiction" OWNER TO postgres;
+
+\connect "NoAddiction"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: DATABASE "NoAddiction"; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE "NoAddiction" IS 'DB for NA app';
+
+
+--
 -- Name: NoAddiction; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -61,6 +90,65 @@ ALTER TABLE "NoAddiction".categories__id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE "NoAddiction".categories__id_seq OWNED BY "NoAddiction".categories._id;
+
+
+--
+-- Name: quotes; Type: TABLE; Schema: NoAddiction; Owner: postgres
+--
+
+CREATE TABLE "NoAddiction".quotes (
+    _id integer NOT NULL,
+    quote character varying(2000) NOT NULL,
+    author character varying(150),
+    is_bad boolean NOT NULL,
+    category_id integer NOT NULL
+);
+
+
+ALTER TABLE "NoAddiction".quotes OWNER TO postgres;
+
+--
+-- Name: quotes__id_seq; Type: SEQUENCE; Schema: NoAddiction; Owner: postgres
+--
+
+CREATE SEQUENCE "NoAddiction".quotes__id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NoAddiction".quotes__id_seq OWNER TO postgres;
+
+--
+-- Name: quotes__id_seq; Type: SEQUENCE OWNED BY; Schema: NoAddiction; Owner: postgres
+--
+
+ALTER SEQUENCE "NoAddiction".quotes__id_seq OWNED BY "NoAddiction".quotes._id;
+
+
+--
+-- Name: quotes_category_id_seq; Type: SEQUENCE; Schema: NoAddiction; Owner: postgres
+--
+
+CREATE SEQUENCE "NoAddiction".quotes_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NoAddiction".quotes_category_id_seq OWNER TO postgres;
+
+--
+-- Name: quotes_category_id_seq; Type: SEQUENCE OWNED BY; Schema: NoAddiction; Owner: postgres
+--
+
+ALTER SEQUENCE "NoAddiction".quotes_category_id_seq OWNED BY "NoAddiction".quotes.category_id;
 
 
 --
@@ -164,6 +252,20 @@ ALTER TABLE ONLY "NoAddiction".categories ALTER COLUMN _id SET DEFAULT nextval('
 
 
 --
+-- Name: quotes _id; Type: DEFAULT; Schema: NoAddiction; Owner: postgres
+--
+
+ALTER TABLE ONLY "NoAddiction".quotes ALTER COLUMN _id SET DEFAULT nextval('"NoAddiction".quotes__id_seq'::regclass);
+
+
+--
+-- Name: quotes category_id; Type: DEFAULT; Schema: NoAddiction; Owner: postgres
+--
+
+ALTER TABLE ONLY "NoAddiction".quotes ALTER COLUMN category_id SET DEFAULT nextval('"NoAddiction".quotes_category_id_seq'::regclass);
+
+
+--
 -- Name: timers _id; Type: DEFAULT; Schema: NoAddiction; Owner: postgres
 --
 
@@ -194,6 +296,17 @@ COPY "NoAddiction".categories (_id, name) FROM stdin;
 
 
 --
+-- Data for Name: quotes; Type: TABLE DATA; Schema: NoAddiction; Owner: postgres
+--
+
+COPY "NoAddiction".quotes (_id, quote, author, is_bad, category_id) FROM stdin;
+1	Каждый год в россии около 5000 людей в возрасте до 21 года умирают в ситуациях, связанных с алкоголем, — например, в авариях, бытовых убийствах, в результате отравления и других подобных травм.	Nobody	t	1
+2	Какая разница кто какой национальности? Взял водку - пей!	Влад Легков	f	1
+3	Алкоголь – штука коварная: с одной стороны, бокал пива – просто незаменимое лекарство от перенапряжения после тяжелой рабочей недели. Но с другой – это невидимый, но достаточно ощутимый удар по здоровью, бьющий в самые уязвимые места нашего организма.	\N	t	1
+\.
+
+
+--
 -- Data for Name: timers; Type: TABLE DATA; Schema: NoAddiction; Owner: postgres
 --
 
@@ -201,7 +314,7 @@ COPY "NoAddiction".timers (_id, begin_date, end_date, user_id, category_id) FROM
 2	2018-01-01 01:00:00	2018-01-17 12:34:00	0	1
 3	2018-02-01 01:00:00	2018-02-17 17:34:00	0	1
 4	2018-05-01 12:00:00	2018-06-10 17:34:00	0	1
-5	2019-10-01 12:00:00	2019-12-31 14:34:00	0	1
+5	2019-10-01 12:00:00	2020-12-12 00:00:00	0	1
 1	2020-01-01 01:00:00	\N	0	1
 \.
 
@@ -220,6 +333,20 @@ COPY "NoAddiction".users (_id, username, email) FROM stdin;
 --
 
 SELECT pg_catalog.setval('"NoAddiction".categories__id_seq', 1, false);
+
+
+--
+-- Name: quotes__id_seq; Type: SEQUENCE SET; Schema: NoAddiction; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"NoAddiction".quotes__id_seq', 1, false);
+
+
+--
+-- Name: quotes_category_id_seq; Type: SEQUENCE SET; Schema: NoAddiction; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"NoAddiction".quotes_category_id_seq', 1, false);
 
 
 --
@@ -252,6 +379,14 @@ ALTER TABLE ONLY "NoAddiction".categories
 
 
 --
+-- Name: quotes quotes_pk; Type: CONSTRAINT; Schema: NoAddiction; Owner: postgres
+--
+
+ALTER TABLE ONLY "NoAddiction".quotes
+    ADD CONSTRAINT quotes_pk PRIMARY KEY (_id);
+
+
+--
 -- Name: timers timers_pk; Type: CONSTRAINT; Schema: NoAddiction; Owner: postgres
 --
 
@@ -275,10 +410,25 @@ CREATE UNIQUE INDEX categories__id_uindex ON "NoAddiction".categories USING btre
 
 
 --
+-- Name: quotes__id_uindex; Type: INDEX; Schema: NoAddiction; Owner: postgres
+--
+
+CREATE UNIQUE INDEX quotes__id_uindex ON "NoAddiction".quotes USING btree (_id);
+
+
+--
 -- Name: timers__id_uindex; Type: INDEX; Schema: NoAddiction; Owner: postgres
 --
 
 CREATE UNIQUE INDEX timers__id_uindex ON "NoAddiction".timers USING btree (_id);
+
+
+--
+-- Name: quotes quotes_categories__id_fk; Type: FK CONSTRAINT; Schema: NoAddiction; Owner: postgres
+--
+
+ALTER TABLE ONLY "NoAddiction".quotes
+    ADD CONSTRAINT quotes_categories__id_fk FOREIGN KEY (category_id) REFERENCES "NoAddiction".categories(_id);
 
 
 --

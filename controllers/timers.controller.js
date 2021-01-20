@@ -32,6 +32,20 @@ class TimersController {
       res.status(500).send(error);
     }
   }
+
+  updateCurrentTimerEndDate = async (req, res) => {
+    try {
+      const updateInfo = await services.updateCurrentTimerEndDate(
+        req.body.id,
+        req.body.date,
+      );
+      console.log(updateInfo);
+      res.json(timer);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  };
 }
 
 module.exports = new TimersController();

@@ -7,8 +7,10 @@ const timersRouter = require('./routes/timers.routes');
 const quotesRoter = require('./routes/quotes.routes');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
 
 // Add headers
 app.use(function (req, res, next) {
@@ -39,6 +41,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/timers', timersRouter);
 app.use('/api/quotes', quotesRoter);
 
-const PORT = process.env.PORT || 3000;
+app.get('*', (req, res) => {
+  res.send('Route not found');
+});
 
 app.listen(PORT, () => console.log(`App has been started on port ${PORT}`));

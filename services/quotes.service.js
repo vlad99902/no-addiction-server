@@ -14,7 +14,7 @@ async function getAllBadOrNotQuotes(isBad) {
   try {
     const quotes = await db.getAllBadOrNotQuotes(isBad);
 
-    return quotes.rows;
+    return quotes.rows[0];
   } catch (error) {
     throw new Error(`Error with get all isBad=${isBad} quotes`);
   }

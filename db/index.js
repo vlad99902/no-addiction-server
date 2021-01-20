@@ -1,4 +1,9 @@
-const { getAllTimers, getCurrentTimer, getLastTimer } = require('./timers');
+const {
+  getAllTimers,
+  getCurrentTimer,
+  getLastTimer,
+  updateCurrentTimerEndDate,
+} = require('./timers');
 const getAllUsers = require('./users');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes');
 
@@ -9,4 +14,5 @@ module.exports = {
   getLastTimer,
   getAllQuotes,
   getAllBadOrNotQuotes,
+  updateCurrentTimerEndDate,
 };

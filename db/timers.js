@@ -30,4 +30,17 @@ where begin_date = (select max(begin_date) from "NoAddiction".timers)
   return query;
 };
 
-module.exports = { getAllTimers, getCurrentTimer, getLastTimer };
+const updateCurrentTimerEndDate = async (id, date) => {
+  const query = await connectDb.query(
+    `UPDATE "NoAddiction".timers set end_date=${date} where _id = ${id}`,
+  );
+
+  return query;
+};
+
+module.exports = {
+  getAllTimers,
+  getCurrentTimer,
+  getLastTimer,
+  updateCurrentTimerEndDate,
+};

@@ -44,9 +44,22 @@ async function getLastTimer() {
   }
 }
 
+const updateCurrentTimerEndDate = async (id, date) => {
+  try {
+    const updateResult = await db.updateCurrentTimerEndDate(id, date);
+    return updateResult;
+  } catch (error) {
+    console.log(error);
+    throw new Error(
+      `Can not update current timer. Timer id: ${id}. Date: ${date}`,
+    );
+  }
+};
+
 module.exports = {
   getAllTimers,
   getCurrentTimer,
   getLastTimer,
   getInAddiction,
+  updateCurrentTimerEndDate,
 };

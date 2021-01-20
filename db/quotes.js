@@ -8,7 +8,7 @@ const getAllQuotes = async () => {
 };
 
 async function getAllBadOrNotQuotes(isBad) {
-  const query = await connection.query(`SELECT quotes._id, quote, author, is_bad, name as category_name FROM "NoAddiction".quotes
+  const query = await connection.query(`SELECT quote, author, name as category_name FROM "NoAddiction".quotes
   JOIN "NoAddiction".categories ON quotes.category_id = categories._id
   WHERE quotes.is_bad = ${isBad}
   ORDER BY RANDOM()
