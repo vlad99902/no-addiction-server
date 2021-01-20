@@ -20,7 +20,7 @@ class QuotesController {
   async getAllBadOrNotQuotes(req, res) {
     try {
       const isBad = req.params.isbad;
-      console.log(req.params);
+
       const quotes = await services.getAllBadOrNotQuotes(isBad);
       res.send(quotes);
     } catch (error) {

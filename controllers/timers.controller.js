@@ -13,7 +13,7 @@ class TimersController {
   async getCurrentTimer(req, res) {
     try {
       let timer;
-      if (req.query.inaddiction) {
+      if (req.query.inAddiction) {
         timer = await services.getInAddiction();
       } else {
         timer = await services.getCurrentTimer();
@@ -38,7 +38,7 @@ class TimersController {
       await services.updateCurrentTimerEndDate(req.body.id, req.body.date);
 
       res
-        .status(201)
+        .status(200)
         .json({ message: `Current date id: ${req.body.id} updated` });
     } catch (error) {
       res.status(500).send(error);

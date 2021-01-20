@@ -15,7 +15,7 @@ const getCurrentTimer = async () => {
   timers.end_date, users.username, categories.name FROM "NoAddiction".timers
   JOIN "NoAddiction".users ON timers.user_id = users._id
   JOIN "NoAddiction".categories ON timers.category_id = categories._id
-  WHERE timers.end_date ISNULL ORDER BY timers.begin_date`);
+  WHERE timers.end_date ISNULL ORDER BY timers.begin_date DESC`);
 
   return query;
 };
@@ -61,7 +61,7 @@ const createNewDate = async (
   const queryResult = await connectDb.query(
     `INSERT INTO "NoAddiction".timers (begin_date, end_date, user_id, category_id) VALUES ('${beginDate}', ${endDate}, ${userId}, ${categoryId})`,
   );
-  console.log(queryResult, 'gbpf');
+
   return queryResult;
 };
 

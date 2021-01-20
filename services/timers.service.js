@@ -64,7 +64,6 @@ const createNewCurrentDate = async (userId, beginDate, categoryId) => {
       'NULL',
       categoryId,
     );
-    console.log(queryResult, 'пизда');
     return queryResult;
   } catch (error) {
     throw new Error(
