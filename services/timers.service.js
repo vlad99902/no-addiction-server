@@ -56,6 +56,18 @@ const updateCurrentTimerEndDate = async (id, date) => {
   }
 };
 
+const getRecordsListWithDuration = async (limit) => {
+  try {
+    const result = await db.getRecordsListWithDuration(limit);
+    return result;
+  } catch (error) {
+    throw new Error(
+      `Can not get records list
+      Sql error: ${error}`,
+    );
+  }
+};
+
 const createNewCurrentDate = async (userId, beginDate, categoryId) => {
   try {
     const queryResult = await db.createNewDate(
@@ -80,4 +92,5 @@ module.exports = {
   getInAddiction,
   updateCurrentTimerEndDate,
   createNewCurrentDate,
+  getRecordsListWithDuration,
 };

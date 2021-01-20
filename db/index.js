@@ -4,6 +4,7 @@ const {
   getLastTimer,
   updateCurrentTimerEndDate,
   createNewDate,
+  getRecordsListWithDuration,
 } = require('./timers');
 const getAllUsers = require('./users');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes');
@@ -17,4 +18,5 @@ module.exports = {
   getAllBadOrNotQuotes,
   updateCurrentTimerEndDate,
   createNewDate,
+  getRecordsListWithDuration,
 };

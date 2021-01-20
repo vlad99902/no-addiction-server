@@ -5,6 +5,7 @@ const {
   getInAddiction,
   updateCurrentTimerEndDate,
   createNewCurrentDate,
+  getRecordsListWithDuration,
 } = require('./timers.service');
 const { getAllUsers } = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
@@ -19,4 +20,5 @@ module.exports = {
   getInAddiction,
   updateCurrentTimerEndDate,
   createNewCurrentDate,
+  getRecordsListWithDuration,
 };
