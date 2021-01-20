@@ -73,7 +73,7 @@ const createNewCurrentDate = async (userId, beginDate, categoryId) => {
     const queryResult = await db.createNewDate(
       userId,
       beginDate,
-      'NULL',
+      null,
       categoryId,
     );
     return queryResult;

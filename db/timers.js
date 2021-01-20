@@ -36,11 +36,13 @@ where begin_date = (select max(begin_date) from "NoAddiction".timers)
  */
 
 const getRecordsListWithDuration = async (limit = 10) => {
-  const queryResult = await connectDb.query(`
-  SELECT timers._id, timers.end_date-timers.begin_date as duration,
-  timers.begin_date ,timers.end_date, users.username, categories.name FROM "NoAddiction".timers
+  const queryResult = await connectDb.query(
+    `
+  SELECT timers._id, timers.begin_date, timers.end_date ,timers.end_date, users.username, categories.name FROM "NoAddiction".timers
   JOIN "NoAddiction".users ON timers.user_id = users._id
-  JOIN "NoAddiction".categories ON timers.category_id = categories._id WHERE timers.end_date IS NOT NULL ORDER BY duration DESC LIMIT ${limit}`);
+  JOIN "NoAddiction".categories ON timers.category_id = categories._id WHERE timers.end_date IS NOT NULL ORDER BY begin_date DESC LIMIT $1`,
+    [limit],
+  );
 
   return queryResult;
 };
@@ -52,7 +54,8 @@ const getRecordsListWithDuration = async (limit = 10) => {
  */
 const updateCurrentTimerEndDate = async (id, date) => {
   const queryResult = await connectDb.query(
-    `UPDATE "NoAddiction".timers set end_date='${date}' where _id = ${id}`,
+    `UPDATE "NoAddiction".timers set end_date=$1 where _id = $2`,
+    [date, id],
   );
 
   return queryResult;
@@ -69,12 +72,13 @@ const updateCurrentTimerEndDate = async (id, date) => {
 const createNewDate = async (
   userId,
   beginDate,
-  //ПОКА НЕ РАБОТАЕТ
-  endDate = 'NULL',
+
+  endDate = null,
   categoryId,
 ) => {
   const queryResult = await connectDb.query(
-    `INSERT INTO "NoAddiction".timers (begin_date, end_date, user_id, category_id) VALUES ('${beginDate}', ${endDate}, ${userId}, ${categoryId})`,
+    `INSERT INTO "NoAddiction".timers (begin_date, end_date, user_id, category_id) VALUES ($1, $2, $3, $4)`,
+    [beginDate, endDate, userId, categoryId],
   );
 
   return queryResult;
