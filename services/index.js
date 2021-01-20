@@ -4,6 +4,7 @@ const {
   getLastTimer,
   getInAddiction,
   updateCurrentTimerEndDate,
+  createNewCurrentDate,
 } = require('./timers.service');
 const { getAllUsers } = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
@@ -17,4 +18,5 @@ module.exports = {
   getAllBadOrNotQuotes,
   getInAddiction,
   updateCurrentTimerEndDate,
+  createNewCurrentDate,
 };

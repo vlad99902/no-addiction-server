@@ -49,9 +49,27 @@ const updateCurrentTimerEndDate = async (id, date) => {
     const updateResult = await db.updateCurrentTimerEndDate(id, date);
     return updateResult;
   } catch (error) {
-    console.log(error);
     throw new Error(
-      `Can not update current timer. Timer id: ${id}. Date: ${date}`,
+      `Can not update current timer. Timer id: ${id}. Date: ${date}
+      Sql error: ${error}`,
+    );
+  }
+};
+
+const createNewCurrentDate = async (userId, beginDate, categoryId) => {
+  try {
+    const queryResult = await db.createNewDate(
+      userId,
+      beginDate,
+      'NULL',
+      categoryId,
+    );
+    console.log(queryResult, 'пизда');
+    return queryResult;
+  } catch (error) {
+    throw new Error(
+      `Can not create new current timer. userId: ${userId}; beginDate: ${beginDate}; categoryId: ${categoryId}
+      Sql error: ${error}`,
     );
   }
 };
@@ -62,4 +80,5 @@ module.exports = {
   getLastTimer,
   getInAddiction,
   updateCurrentTimerEndDate,
+  createNewCurrentDate,
 };
