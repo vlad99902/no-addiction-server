@@ -62,7 +62,7 @@ class TimersController {
   getRecordsList = async (req, res) => {
     try {
       let limit = req.query.limit;
-      if (!limit) limit = 10;
+      // if (!limit) limit = 10;
 
       const result = await services.getRecordsListWithDuration(limit);
 

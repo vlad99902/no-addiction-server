@@ -59,7 +59,7 @@ const updateCurrentTimerEndDate = async (id, date) => {
 const getRecordsListWithDuration = async (limit) => {
   try {
     const result = await db.getRecordsListWithDuration(limit);
-    return result;
+    return result.rows;
   } catch (error) {
     throw new Error(
       `Can not get records list
