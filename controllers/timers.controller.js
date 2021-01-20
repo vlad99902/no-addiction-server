@@ -12,7 +12,12 @@ class TimersController {
 
   async getCurrentTimer(req, res) {
     try {
-      const timer = await services.getCurrentTimer();
+      let timer;
+      if (req.query.inaddiction) {
+        timer = await services.getInAddiction();
+      } else {
+        timer = await services.getCurrentTimer();
+      }
       res.json(timer);
     } catch (error) {
       res.status(500).send(error);

@@ -1,7 +1,7 @@
 const services = require('../services');
 const connection = require('../db/connect');
 class QuotesController {
-  async getAllQuotes(req, res) {
+  async getQuotes(req, res) {
     try {
       const isBad = req.query.isbad;
       let quotes;

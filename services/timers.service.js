@@ -13,8 +13,9 @@ async function getCurrentTimer() {
   try {
     const currentTimer = await db.getCurrentTimer();
 
+    //подумать что на фронте
     if (currentTimer.rows.length === 0) {
-      return { message: `No current timer for user userid` };
+      return { message: `No current timer` };
     }
 
     return currentTimer.rows[0];
@@ -22,6 +23,17 @@ async function getCurrentTimer() {
     throw new Error('Get current timer server error');
   }
 }
+
+const getInAddiction = async (req, res) => {
+  try {
+    const timer = await db.getCurrentTimer();
+    if (!timer.rows.length) {
+      return { inAddiction: true };
+    } else return { inAddiction: false };
+  } catch (error) {
+    throw new Error('Cannot get inAddiction status');
+  }
+};
 
 async function getLastTimer() {
   try {
@@ -32,4 +44,9 @@ async function getLastTimer() {
   }
 }
 
-module.exports = { getAllTimers, getCurrentTimer, getLastTimer };
+module.exports = {
+  getAllTimers,
+  getCurrentTimer,
+  getLastTimer,
+  getInAddiction,
+};
