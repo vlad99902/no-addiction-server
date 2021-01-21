@@ -18,7 +18,13 @@ async function getCurrentTimer() {
       return { message: `No current timer` };
     }
 
-    return currentTimer.rows[0];
+    const {
+      _id: timerId,
+      begin_date: beginDate,
+      end_date: endDate,
+    } = currentTimer.rows[0];
+
+    return { timerId, beginDate, endDate };
   } catch (error) {
     throw new Error('Get current timer server error');
   }
