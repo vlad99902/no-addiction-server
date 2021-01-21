@@ -35,9 +35,8 @@ where begin_date = (select max(begin_date) from "NoAddiction".timers)
 const getRecordsListWithDuration = async (limit = 10) => {
   const queryResult = await connectDb.query(
     `
-  SELECT timers._id, timers.begin_date, timers.end_date ,timers.end_date, users.username, categories.name FROM "NoAddiction".timers
-  JOIN "NoAddiction".users ON timers.user_id = users._id
-  JOIN "NoAddiction".categories ON timers.category_id = categories._id WHERE timers.end_date IS NOT NULL ORDER BY begin_date DESC LIMIT $1`,
+  SELECT timers._id, timers.begin_date, timers.end_date ,timers.end_date FROM "NoAddiction".timers
+  WHERE timers.end_date IS NOT NULL ORDER BY end_date-begin_date DESC LIMIT $1`,
     [limit],
   );
 

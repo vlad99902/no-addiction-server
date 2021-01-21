@@ -64,8 +64,16 @@ const updateCurrentTimerEndDate = async (id, date) => {
 
 const getRecordsListWithDuration = async (limit) => {
   try {
-    const result = await db.getRecordsListWithDuration(limit);
-    return result.rows;
+    let result = await db.getRecordsListWithDuration(limit);
+    result = result.rows.map((el) => {
+      return {
+        recordId: el._id,
+        beginDate: el.begin_date,
+        endDate: el.end_date,
+      };
+    });
+
+    return result;
   } catch (error) {
     throw new Error(
       `Can not get records list
