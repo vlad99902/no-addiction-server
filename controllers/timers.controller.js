@@ -1,3 +1,4 @@
+const e = require('express');
 const services = require('../services');
 
 class TimersController {
@@ -67,6 +68,26 @@ class TimersController {
       const result = await services.getRecordsListWithDuration(limit);
 
       res.json(result);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+
+  /**
+   * Delete timer by id route controller
+   * @param {} req
+   * @param {} res
+   */
+  deleteTimerById = async (req, res) => {
+    try {
+      const timerId = req.body.timerId;
+      const result = await services.deleteTimerById(timerId);
+
+      res
+        .status(200)
+        .json({
+          message: `Timer with timerId: ${timerId} was successfully deleted`,
+        });
     } catch (error) {
       res.status(500).send(error);
     }

@@ -1,4 +1,4 @@
-const db = require('../db/index');
+const db = require('../db');
 
 async function getAllTimers() {
   try {
@@ -99,6 +99,21 @@ const createNewCurrentDate = async (userId, beginDate, categoryId) => {
   }
 };
 
+/**
+ * Delete timer by id service
+ * @param {number} timerId
+ */
+const deleteTimerById = async (timerId) => {
+  try {
+    const queryResult = await db.deleteTimerById(timerId);
+
+    return queryResult.rowCount;
+  } catch (error) {
+    throw new Error(`
+    `);
+  }
+};
+
 module.exports = {
   getAllTimers,
   getCurrentTimer,
@@ -107,4 +122,5 @@ module.exports = {
   updateCurrentTimerEndDate,
   createNewCurrentDate,
   getRecordsListWithDuration,
+  deleteTimerById,
 };

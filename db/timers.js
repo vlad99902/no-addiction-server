@@ -80,6 +80,20 @@ const createNewDate = async (
   return queryResult;
 };
 
+/**
+ * Delete one timer by id
+ * @param {number} id - timer id
+ */
+
+const deleteTimerById = async (id) => {
+  const queryResult = await connectDb.query(
+    `DELETE FROM "NoAddiction".timers where _id = $1`,
+    [id],
+  );
+
+  return queryResult;
+};
+
 module.exports = {
   getAllTimers,
   getCurrentTimer,
@@ -87,4 +101,5 @@ module.exports = {
   updateCurrentTimerEndDate,
   createNewDate,
   getRecordsListWithDuration,
+  deleteTimerById,
 };

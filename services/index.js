@@ -6,6 +6,7 @@ const {
   updateCurrentTimerEndDate,
   createNewCurrentDate,
   getRecordsListWithDuration,
+  deleteTimerById,
 } = require('./timers.service');
 const { getAllUsers } = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
@@ -21,4 +22,5 @@ module.exports = {
   updateCurrentTimerEndDate,
   createNewCurrentDate,
   getRecordsListWithDuration,
+  deleteTimerById,
 };
