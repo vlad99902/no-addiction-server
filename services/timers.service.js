@@ -13,9 +13,8 @@ async function getCurrentTimer() {
   try {
     const currentTimer = await db.getCurrentTimer();
 
-    //подумать что на фронте
     if (currentTimer.rows.length === 0) {
-      return { message: `No current timer` };
+      return { timerId: -1, beginDate: null, endDate: null };
     }
 
     const {
