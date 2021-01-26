@@ -10,8 +10,9 @@ const {
 } = require('./timers.service');
 const {
   getAllUsers,
-  getUserByEmailOrUsername,
+  getUserByEmailAndUsername,
   createNewUser,
+  getUserByEmailOrUsername,
 } = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
 
@@ -27,6 +28,7 @@ module.exports = {
   createNewCurrentDate,
   getRecordsListWithDuration,
   deleteTimerById,
-  getUserByEmailOrUsername,
+  getUserByEmailAndUsername,
   createNewUser,
+  getUserByEmailOrUsername,
 };

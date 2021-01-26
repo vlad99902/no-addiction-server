@@ -12,6 +12,7 @@ const {
   createNewUser,
   getUserByEmail,
   getUserByUsername,
+  getUserByEmailOrUsername,
 } = require('./users');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes');
 
@@ -29,4 +30,5 @@ module.exports = {
   createNewUser,
   getUserByEmail,
   getUserByUsername,
+  getUserByEmailOrUsername,
 };

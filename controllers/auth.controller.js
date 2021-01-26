@@ -1,11 +1,12 @@
 const services = require('../services');
 const bcript = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 class AuthController {
   async registerWithEmail(req, res) {
     try {
       const { username, email, password } = req.body;
-      const candidate = await services.getUserByEmailOrUsername(
+      const candidate = await services.getUserByEmailAndUsername(
         email,
         username,
       );
@@ -35,7 +36,38 @@ class AuthController {
         .json({ message: `User ${username || email} registred successfully` });
     } catch (error) {
       res.status(500).json({ message: 'Something wrong with register' });
-      console.log(error);
+    }
+  }
+
+  async loginWithEmail(req, res) {
+    try {
+      let { username, email, password } = req.body;
+      if (!username) username = null;
+      if (!email) email = null;
+      const user = await services.getUserByEmailOrUsername(email, username);
+
+      //check if email or username exists in db
+      if (!user) {
+        return res.status(409).json({
+          message: `User not found`,
+        });
+      }
+
+      const isPasswordMatch = await bcript.compare(
+        password,
+        user.hash_password,
+      );
+      if (!isPasswordMatch) {
+        res.status(400).json({ message: 'Incorrent password' });
+      }
+
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: '1d',
+      });
+
+      res.json({ token: token });
+    } catch (error) {
+      res.status(500).json({ message: 'Something wrong with login' });
     }
   }
 }

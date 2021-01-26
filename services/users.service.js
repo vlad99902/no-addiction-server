@@ -18,7 +18,7 @@ async function createNewUser(username, email, hashedPassword) {
     Sql error: ${error}`);
   }
 }
-async function getUserByEmailOrUsername(email, username) {
+async function getUserByEmailAndUsername(email, username) {
   try {
     const userByEmail = await db.getUserByEmail(email);
     const userByUsername = await db.getUserByUsername(username);
@@ -28,9 +28,25 @@ async function getUserByEmailOrUsername(email, username) {
       usernameExists: !!userByUsername.rows.length,
     };
   } catch (error) {
-    throw new Error(`Get user by email
+    throw new Error(`Get user by email and username
     Sql error: ${error}`);
   }
 }
 
-module.exports = { getAllUsers, createNewUser, getUserByEmailOrUsername };
+async function getUserByEmailOrUsername(email, username) {
+  try {
+    const queryRes = await db.getUserByEmailOrUsername(email, username);
+
+    return queryRes.rows[0];
+  } catch (error) {
+    throw new Error(`Get user by email or username
+    Sql error: ${error}`);
+  }
+}
+
+module.exports = {
+  getAllUsers,
+  createNewUser,
+  getUserByEmailAndUsername,
+  getUserByEmailOrUsername,
+};

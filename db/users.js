@@ -33,9 +33,19 @@ const getUserByUsername = async (username) => {
   return queryRes;
 };
 
+const getUserByEmailOrUsername = async (email, username) => {
+  const queryRes = await connectDb.query(
+    'SELECT * FROM "NoAddiction".users WHERE username = $1 OR email = $2',
+    [username, email],
+  );
+
+  return queryRes;
+};
+
 module.exports = {
   getAllUsers,
   createNewUser,
   getUserByEmail,
   getUserByUsername,
+  getUserByEmailOrUsername,
 };
