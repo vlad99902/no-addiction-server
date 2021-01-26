@@ -5,6 +5,7 @@ const express = require('express');
 const usersRouter = require('./routes/users.routes');
 const timersRouter = require('./routes/timers.routes');
 const quotesRoter = require('./routes/quotes.routes');
+const authRouter = require('./routes/auth.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/api/users', usersRouter);
+app.use('/api', authRouter);
 app.use('/api/timers', timersRouter);
 app.use('/api/quotes', quotesRoter);
 

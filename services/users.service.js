@@ -9,4 +9,28 @@ async function getAllUsers() {
   }
 }
 
-module.exports = { getAllUsers };
+async function createNewUser(username, email, hashedPassword) {
+  try {
+    const result = await db.createNewUser(username, email, hashedPassword);
+    return result;
+  } catch (error) {
+    throw new Error(`Create new user error
+    Sql error: ${error}`);
+  }
+}
+async function getUserByEmailOrUsername(email, username) {
+  try {
+    const userByEmail = await db.getUserByEmail(email);
+    const userByUsername = await db.getUserByUsername(username);
+
+    return {
+      emailExists: !!userByEmail.rows.length,
+      usernameExists: !!userByUsername.rows.length,
+    };
+  } catch (error) {
+    throw new Error(`Get user by email
+    Sql error: ${error}`);
+  }
+}
+
+module.exports = { getAllUsers, createNewUser, getUserByEmailOrUsername };

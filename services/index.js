@@ -8,7 +8,11 @@ const {
   getRecordsListWithDuration,
   deleteTimerById,
 } = require('./timers.service');
-const { getAllUsers } = require('./users.service');
+const {
+  getAllUsers,
+  getUserByEmailOrUsername,
+  createNewUser,
+} = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
 
 module.exports = {
@@ -23,4 +27,6 @@ module.exports = {
   createNewCurrentDate,
   getRecordsListWithDuration,
   deleteTimerById,
+  getUserByEmailOrUsername,
+  createNewUser,
 };

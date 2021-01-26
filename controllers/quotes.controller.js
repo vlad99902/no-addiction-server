@@ -1,5 +1,5 @@
 const services = require('../services');
-const connection = require('../db/connect');
+
 class QuotesController {
   async getQuotes(req, res) {
     try {
