@@ -31,9 +31,17 @@ class AuthController {
       const hashedPassword = await bcript.hash(password, 12);
       await services.createNewUser(username, email, hashedPassword);
 
-      res
-        .status(201)
-        .json({ message: `User ${username || email} registred successfully` });
+      //get token to new user
+      //TODO make a function
+      const user = await services.getUserByEmailOrUsername(email, username);
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: '1d',
+      });
+
+      res.status(201).json({
+        message: `User ${username || email} registred successfully`,
+        token,
+      });
     } catch (error) {
       res.status(500).json({ message: 'Something wrong with register' });
     }

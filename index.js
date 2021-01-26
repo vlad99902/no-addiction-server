@@ -16,7 +16,7 @@ app.use(express.json());
 // Add headers
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   // Request methods you wish to allow
   res.setHeader(
@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
   // Request headers you wish to allow
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'X-Requested-With,content-type',
+    'X-Requested-With,content-type,Authorization',
   );
 
   // Set to true if you need the website to include cookies in the requests sent
