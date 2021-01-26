@@ -6,7 +6,7 @@ class UsersController {
       const users = await services.getAllUsers();
       res.json(users.rows);
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).json({ message: String(error) });
     }
   }
 }

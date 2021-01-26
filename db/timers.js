@@ -1,28 +1,38 @@
 const connectDb = require('./connect');
 
-const getAllTimers = async () => {
-  const query = await connectDb.query(`SELECT timers._id, timers.begin_date, 
+const getAllTimers = async (userId) => {
+  const query = await connectDb.query(
+    `SELECT timers._id, timers.begin_date, 
   timers.end_date, users.username, categories.name
   FROM "NoAddiction".timers
   JOIN "NoAddiction".users ON timers.user_id = users._id
-  JOIN "NoAddiction".categories ON timers.category_id = categories._id`);
+  JOIN "NoAddiction".categories ON timers.category_id = categories._id WHERE timers.user_id = $1`,
+    [userId],
+  );
 
   return query;
 };
 
-const getCurrentTimer = async () => {
-  const query = await connectDb.query(`SELECT timers._id, timers.begin_date,
-  timers.end_date FROM "NoAddiction".timers WHERE timers.end_date ISNULL ORDER BY timers.begin_date DESC`);
+const getCurrentTimer = async (userId) => {
+  const query = await connectDb.query(
+    `SELECT timers._id, timers.begin_date,
+  timers.end_date FROM "NoAddiction".timers WHERE timers.end_date ISNULL AND timers.user_id = $1
+  ORDER BY timers.begin_date DESC`,
+    [userId],
+  );
 
   return query;
 };
 
-const getLastTimer = async () => {
-  const query = await connectDb.query(`SELECT timers._id, begin_date, end_date, users.username, categories.name FROM "NoAddiction".timers
+const getLastTimer = async (userId) => {
+  const query = await connectDb.query(
+    `SELECT timers._id, begin_date, end_date, users.username, categories.name FROM "NoAddiction".timers
   JOIN "NoAddiction".users ON timers.user_id = users._id
   JOIN "NoAddiction".categories ON timers.category_id = categories._id
-where begin_date = (select max(begin_date) from "NoAddiction".timers)
-`);
+where begin_date = (select max(begin_date) from "NoAddiction".timers) AND timers.user_id = $1
+`,
+    [userId],
+  );
 
   return query;
 };
@@ -32,12 +42,13 @@ where begin_date = (select max(begin_date) from "NoAddiction".timers)
  * @param {number} limit - limit rows
  */
 
-const getRecordsListWithDuration = async (limit = 10) => {
+const getRecordsListWithDuration = async (userId, limit = 10) => {
   const queryResult = await connectDb.query(
     `
   SELECT timers._id, timers.begin_date, timers.end_date ,timers.end_date FROM "NoAddiction".timers
-  WHERE timers.end_date IS NOT NULL ORDER BY end_date-begin_date DESC LIMIT $1`,
-    [limit],
+  WHERE timers.end_date IS NOT NULL AND timers.user_id = $2
+  ORDER BY end_date-begin_date DESC LIMIT $1`,
+    [limit, userId],
   );
 
   return queryResult;
@@ -48,10 +59,10 @@ const getRecordsListWithDuration = async (limit = 10) => {
  * @param {number} id
  * @param {date} date
  */
-const updateCurrentTimerEndDate = async (id, date) => {
+const updateCurrentTimerEndDate = async (userId, id, date) => {
   const queryResult = await connectDb.query(
-    `UPDATE "NoAddiction".timers set end_date=$1 where _id = $2`,
-    [date, id],
+    `UPDATE "NoAddiction".timers set end_date=$1 where _id = $2 AND user_id = $3`,
+    [date, id, userId],
   );
 
   return queryResult;
@@ -85,10 +96,10 @@ const createNewDate = async (
  * @param {number} id - timer id
  */
 
-const deleteTimerById = async (id) => {
+const deleteTimerById = async (userId, id) => {
   const queryResult = await connectDb.query(
-    `DELETE FROM "NoAddiction".timers where _id = $1`,
-    [id],
+    `DELETE FROM "NoAddiction".timers where timers._id = $1 AND timers.user_id = $2`,
+    [id, userId],
   );
 
   return queryResult;

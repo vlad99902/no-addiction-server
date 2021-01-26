@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 module.exports = (req, res, next) => {
   if (req.method === 'OPTIONS') {
@@ -9,13 +8,20 @@ module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]; //Bearer TOKEN
 
+    //if no token found
     if (!token) {
       return res
         .status(401)
         .json({ message: 'No authorization found! No token found' });
     }
 
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    //check token time
+    const { exp, iat } = jwt.decode(token);
+    if (new Date() >= exp * 1000) {
+      return res.status(401).json({ message: 'Token was expired' });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
 
     next();

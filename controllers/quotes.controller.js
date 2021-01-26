@@ -13,7 +13,7 @@ class QuotesController {
 
       res.send(quotes);
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).json({ message: String(error) });
     }
   }
 
@@ -24,7 +24,7 @@ class QuotesController {
       const quotes = await services.getAllBadOrNotQuotes(isBad);
       res.send(quotes);
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).json({ message: String(error) });
     }
   }
 }

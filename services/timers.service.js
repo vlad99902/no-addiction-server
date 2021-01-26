@@ -1,17 +1,17 @@
 const db = require('../db');
 
-async function getAllTimers() {
+async function getAllTimers(userId) {
   try {
-    const timers = await db.getAllTimers();
+    const timers = await db.getAllTimers(userId);
     return timers.rows;
   } catch (error) {
     throw new Error('Get all timers server error');
   }
 }
 
-async function getCurrentTimer() {
+async function getCurrentTimer(userId) {
   try {
-    const currentTimer = await db.getCurrentTimer();
+    const currentTimer = await db.getCurrentTimer(userId);
 
     if (currentTimer.rows.length === 0) {
       return { timerId: -1, beginDate: null, endDate: null };
@@ -29,9 +29,9 @@ async function getCurrentTimer() {
   }
 }
 
-const getInAddiction = async (req, res) => {
+const getInAddiction = async (userId) => {
   try {
-    const timer = await db.getCurrentTimer();
+    const timer = await db.getCurrentTimer(userId);
     if (!timer.rows.length) {
       return { inAddiction: true };
     } else return { inAddiction: false };
@@ -40,19 +40,19 @@ const getInAddiction = async (req, res) => {
   }
 };
 
-async function getLastTimer() {
+async function getLastTimer(userId) {
   try {
-    const lastTimer = await db.getLastTimer();
+    const lastTimer = await db.getLastTimer(userId);
     return lastTimer.rows;
   } catch (error) {
     throw new Error('Get last timer error');
   }
 }
 
-const updateCurrentTimerEndDate = async (id, date) => {
+const updateCurrentTimerEndDate = async (userId, id, date) => {
   try {
-    const updateResult = await db.updateCurrentTimerEndDate(id, date);
-    return updateResult;
+    const updateResult = await db.updateCurrentTimerEndDate(userId, id, date);
+    return updateResult.rowCount;
   } catch (error) {
     throw new Error(
       `Can not update current timer. Timer id: ${id}. Date: ${date}
@@ -61,9 +61,9 @@ const updateCurrentTimerEndDate = async (id, date) => {
   }
 };
 
-const getRecordsListWithDuration = async (limit) => {
+const getRecordsListWithDuration = async (userId, limit) => {
   try {
-    let result = await db.getRecordsListWithDuration(limit);
+    let result = await db.getRecordsListWithDuration(userId, limit);
     result = result.rows.map((el) => {
       return {
         recordId: el._id,
@@ -102,14 +102,14 @@ const createNewCurrentDate = async (userId, beginDate, categoryId) => {
  * Delete timer by id service
  * @param {number} timerId
  */
-const deleteTimerById = async (timerId) => {
+const deleteTimerById = async (userId, timerId) => {
   try {
-    const queryResult = await db.deleteTimerById(timerId);
+    const queryResult = await db.deleteTimerById(userId, timerId);
 
     return queryResult.rowCount;
   } catch (error) {
-    throw new Error(`
-    `);
+    throw new Error(`Cant delete timer: ${timerId}
+    SQL error: ${error}`);
   }
 };
 
