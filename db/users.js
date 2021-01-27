@@ -33,10 +33,10 @@ const getUserByUsername = async (username) => {
   return queryRes;
 };
 
-const getUserByEmailOrUsername = async (email, username) => {
+const getUserByEmailOrUsername = async (usernameOrEmail) => {
   const queryRes = await connectDb.query(
-    'SELECT * FROM "NoAddiction".users WHERE username = $1 OR email = $2',
-    [username, email],
+    'SELECT * FROM "NoAddiction".users WHERE username = $1 OR email = $1',
+    [usernameOrEmail],
   );
 
   return queryRes;

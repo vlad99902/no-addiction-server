@@ -49,10 +49,10 @@ class AuthController {
 
   async loginWithEmail(req, res) {
     try {
-      let { username, email, password } = req.body;
-      if (!username) username = null;
-      if (!email) email = null;
-      const user = await services.getUserByEmailOrUsername(email, username);
+      let { usernameOrEmail, password } = req.body;
+      // if (!username) username = null;
+      // if (!email) email = null;
+      const user = await services.getUserByEmailOrUsername(usernameOrEmail);
 
       //check if email or username exists in db
       if (!user) {

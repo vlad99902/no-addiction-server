@@ -33,9 +33,9 @@ async function getUserByEmailAndUsername(email, username) {
   }
 }
 
-async function getUserByEmailOrUsername(email, username) {
+async function getUserByEmailOrUsername(usernameOrEmail) {
   try {
-    const queryRes = await db.getUserByEmailOrUsername(email, username);
+    const queryRes = await db.getUserByEmailOrUsername(usernameOrEmail);
 
     return queryRes.rows[0];
   } catch (error) {
