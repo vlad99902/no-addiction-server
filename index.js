@@ -7,14 +7,16 @@ const timersRouter = require('./routes/timers.routes');
 const quotesRoter = require('./routes/quotes.routes');
 const authRouter = require('./routes/auth.routes');
 const passport = require('passport');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors());
 //init passport
 app.use(passport.initialize());
-require('./middleware/passport')();
+require('./middleware/passport.middleware')(passport);
 
 // Add headers
 app.use(function (req, res, next) {

@@ -44,9 +44,21 @@ async function getUserByEmailOrUsername(usernameOrEmail) {
   }
 }
 
+async function getUserById(id) {
+  try {
+    const queryRes = await db.getUserById(id);
+
+    return queryRes;
+  } catch (error) {
+    throw new Error(`Can not get user by id
+    Sql error: ${error}`);
+  }
+}
+
 module.exports = {
   getAllUsers,
   createNewUser,
   getUserByEmailAndUsername,
   getUserByEmailOrUsername,
+  getUserById,
 };
