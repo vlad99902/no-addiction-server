@@ -6,12 +6,15 @@ const usersRouter = require('./routes/users.routes');
 const timersRouter = require('./routes/timers.routes');
 const quotesRoter = require('./routes/quotes.routes');
 const authRouter = require('./routes/auth.routes');
+const passport = require('passport');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+//init passport
+app.use(passport.initialize());
+require('./middleware/passport')();
 
 // Add headers
 app.use(function (req, res, next) {
