@@ -13,6 +13,7 @@ const {
   getUserByEmail,
   getUserByUsername,
   getUserByEmailOrUsername,
+  getUserById,
 } = require('./users');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes');
 
@@ -26,6 +27,7 @@ module.exports = {
   updateCurrentTimerEndDate,
   createNewDate,
   getRecordsListWithDuration,
+  getUserById,
   deleteTimerById,
   createNewUser,
   getUserByEmail,

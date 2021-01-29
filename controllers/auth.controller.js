@@ -32,7 +32,7 @@ class AuthController {
       await services.createNewUser(username, email, hashedPassword);
 
       //get token to new user
-      //TODO make a function
+      //TODO make a function ERROR!!!! with function get user
       const user = await services.getUserByEmailOrUsername(email, username);
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: '1d',
@@ -50,8 +50,6 @@ class AuthController {
   async loginWithEmail(req, res) {
     try {
       let { usernameOrEmail, password } = req.body;
-      // if (!username) username = null;
-      // if (!email) email = null;
       const user = await services.getUserByEmailOrUsername(usernameOrEmail);
 
       //check if email or username exists in db
@@ -73,9 +71,24 @@ class AuthController {
         expiresIn: '1d',
       });
 
-      res.json({ token: token });
+      res.json({ token });
     } catch (error) {
       res.status(500).json({ message: 'Something wrong with login' });
+    }
+  }
+
+  async authWithGoogleJwt(req, res) {
+    try {
+      const token = jwt.sign({ userId: req.user._id }, process.env.JWT_SECRET, {
+        expiresIn: '1d',
+      });
+      // console.log('вмвым');
+
+      // res.redirect('http://localhost:3001/' + token);
+
+      res.json({ token });
+    } catch (error) {
+      res.status(500).json({ message: 'Error with create token' });
     }
   }
 }

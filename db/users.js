@@ -6,9 +6,19 @@ const getAllUsers = async () => {
   return query;
 };
 
+const getUserById = async (id) => {
+  const queryRes = await connectDb.query(
+    'SELECT * FROM "NoAddiction".users WHERE users._id = $1',
+    [id],
+  );
+
+  return queryRes;
+};
+
 const createNewUser = async (username, email, hashPassword) => {
   const queryResult = await connectDb.query(
-    'INSERT INTO "NoAddiction".users ( username, email, hash_password) VALUES ($1, $2, $3)',
+    `INSERT INTO "NoAddiction".users ( username, email, hash_password) VALUES ($1, $2, $3)
+    RETURNING *`,
     [username, email, hashPassword],
   );
 
@@ -46,6 +56,7 @@ module.exports = {
   getAllUsers,
   createNewUser,
   getUserByEmail,
+  getUserById,
   getUserByUsername,
   getUserByEmailOrUsername,
 };

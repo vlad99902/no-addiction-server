@@ -1,17 +1,23 @@
 require('dotenv').config();
-
+const passport = require('passport');
 const express = require('express');
+const cors = require('cors');
 
 const usersRouter = require('./routes/users.routes');
 const timersRouter = require('./routes/timers.routes');
 const quotesRoter = require('./routes/quotes.routes');
 const authRouter = require('./routes/auth.routes');
 
+const passportGoogle = require('./middleware/passportGoogle.middleware');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+//init passport
+app.use(passport.initialize());
+passportGoogle(passport);
 
 // Add headers
 app.use(function (req, res, next) {

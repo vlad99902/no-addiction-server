@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
     }
 
     //check token time
+    //onlu for not google
     const { exp, iat } = jwt.decode(token);
     if (new Date() >= exp * 1000) {
       return res.status(401).json({ message: 'Token was expired' });

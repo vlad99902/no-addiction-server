@@ -13,6 +13,7 @@ const {
   getUserByEmailAndUsername,
   createNewUser,
   getUserByEmailOrUsername,
+  getUserById,
 } = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
 
@@ -31,4 +32,5 @@ module.exports = {
   getUserByEmailAndUsername,
   createNewUser,
   getUserByEmailOrUsername,
+  getUserById,
 };
