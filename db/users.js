@@ -17,7 +17,8 @@ const getUserById = async (id) => {
 
 const createNewUser = async (username, email, hashPassword) => {
   const queryResult = await connectDb.query(
-    'INSERT INTO "NoAddiction".users ( username, email, hash_password) VALUES ($1, $2, $3)',
+    `INSERT INTO "NoAddiction".users ( username, email, hash_password) VALUES ($1, $2, $3)
+    RETURNING *`,
     [username, email, hashPassword],
   );
 

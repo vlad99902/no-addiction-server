@@ -1,8 +1,10 @@
+//jwt
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const services = require('../services');
+//google oauth
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const jwt = require('jsonwebtoken');
+const services = require('../services');
 
 const opts = {};
 
@@ -25,4 +27,17 @@ module.exports = (passport) => {
       }
     }),
   );
+
+  // passport.use(
+  //   new GoogleStrategy(
+  //     {
+  //       clientID: process.env.GOOGLE_ID,
+  //       clientSecret: process.env.GOOGLE_SECRET,
+  //       callbackURL: 'auth/google/redirect',
+  //     },
+  //     (accessToken) => {
+  //       console.log('token', accessToken);
+  //     },
+  //   ),
+  // );
 };
