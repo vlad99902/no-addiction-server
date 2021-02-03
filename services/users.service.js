@@ -48,7 +48,7 @@ async function getUserById(id) {
   try {
     const queryRes = await db.getUserById(id);
 
-    return queryRes;
+    return queryRes.rows[0];
   } catch (error) {
     throw new Error(`Can not get user by id
     Sql error: ${error}`);
