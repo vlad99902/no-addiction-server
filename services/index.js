@@ -19,12 +19,16 @@ const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
 const {
   getCategoriesWithCurrent,
   getAllCategories,
+  addCurrentCategory,
+  deleteCurrentCategory,
 } = require('./categories.service');
 
 module.exports = {
   getAllUsers,
   getAllTimers,
   getCurrentTimer,
+  addCurrentCategory,
+  deleteCurrentCategory,
   getLastTimer,
   getAllQuotes,
   getAllBadOrNotQuotes,

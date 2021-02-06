@@ -16,12 +16,19 @@ const {
   getUserById,
 } = require('./users');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes');
-const { getCurrentCategoriesById, getAllCategories } = require('./categories');
+const {
+  getCurrentCategoriesById,
+  getAllCategories,
+  addNewCurrentCategory,
+  deleteCurrentCategoryById,
+} = require('./categories');
 
 module.exports = {
   getAllTimers,
   getAllUsers,
   getCurrentTimer,
+  addNewCurrentCategory,
+  deleteCurrentCategoryById,
   getLastTimer,
   getAllQuotes,
   getAllBadOrNotQuotes,

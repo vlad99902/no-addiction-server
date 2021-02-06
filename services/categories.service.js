@@ -38,7 +38,27 @@ const getAllCategories = async () => {
   }
 };
 
+const deleteCurrentCategory = async (userId, categoryId) => {
+  try {
+    const requestRes = await db.deleteCurrentCategoryById(userId, categoryId);
+    return requestRes;
+  } catch (error) {
+    throw new Error(`Error with delete categoryId: ${categoryId}`);
+  }
+};
+
+const addCurrentCategory = async (userId, categoryId) => {
+  try {
+    const requestRes = await db.addNewCurrentCategory(userId, categoryId);
+    return requestRes;
+  } catch (error) {
+    throw new Error(`Error with add categoryId: ${categoryId}`);
+  }
+};
+
 module.exports = {
   getCategoriesWithCurrent,
   getAllCategories,
+  deleteCurrentCategory,
+  addCurrentCategory,
 };

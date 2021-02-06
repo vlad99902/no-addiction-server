@@ -24,7 +24,37 @@ const getAllCategories = async () => {
   return queryRes;
 };
 
+/**
+ * Delete query for current category
+ * @param {number} userId
+ * @param {number} categoryId
+ */
+const deleteCurrentCategoryById = async (userId, categoryId) => {
+  const queryRes = await connect.query(
+    'DELETE FROM "NoAddiction".current_user_categories WHERE user_id = $1 AND current_user_categories.category_id = $2',
+    [userId, categoryId],
+  );
+
+  return queryRes;
+};
+
+/**
+ * Add new current category
+ * @param {number} userId
+ * @param {number} categoryId
+ */
+const addNewCurrentCategory = async (userId, categoryId) => {
+  const queryRes = await connect.query(
+    'INSERT INTO "NoAddiction".current_user_categories VALUES ($1, $2)',
+    [userId, categoryId],
+  );
+
+  return queryRes;
+};
+
 module.exports = {
   getAllCategories,
   getCurrentCategoriesById,
+  deleteCurrentCategoryById,
+  addNewCurrentCategory,
 };
