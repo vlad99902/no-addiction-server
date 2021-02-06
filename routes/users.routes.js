@@ -7,5 +7,10 @@ const { usersController } = require('../controllers');
 
 router.get('/', usersController.getAllUsers);
 router.get('/currentUser', auth, usersController.getUserById);
+router.put(
+  '/updateCurrentCategory',
+  auth,
+  usersController.updateCurrentUserCategory,
+);
 
 module.exports = router;

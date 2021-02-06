@@ -52,6 +52,15 @@ const getUserByEmailOrUsername = async (usernameOrEmail) => {
   return queryRes;
 };
 
+const updateCurrentUserCategory = async (userId, categoryId) => {
+  const queryRes = await connectDb.query(
+    'UPDATE "NoAddiction".users SET current_category_id = $1 where _id = $2',
+    [categoryId, userId],
+  );
+
+  return queryRes;
+};
+
 module.exports = {
   getAllUsers,
   createNewUser,
@@ -59,4 +68,5 @@ module.exports = {
   getUserById,
   getUserByUsername,
   getUserByEmailOrUsername,
+  updateCurrentUserCategory,
 };

@@ -46,12 +46,27 @@ async function getUserByEmailOrUsername(usernameOrEmail) {
 
 async function getUserById(id) {
   try {
-    const queryRes = await db.getUserById(id);
+    let queryRes = await db.getUserById(id);
+    queryRes = queryRes.rows[0];
 
-    return queryRes.rows[0];
+    return {
+      email: queryRes.email,
+      username: queryRes.username,
+      currentCategoryId: queryRes.current_category_id,
+    };
   } catch (error) {
     throw new Error(`Can not get user by id
     Sql error: ${error}`);
+  }
+}
+
+async function updateCurrentUserCategory(userId, categoryId) {
+  try {
+    const result = await db.updateCurrentUserCategory(userId, categoryId);
+
+    return result;
+  } catch (error) {
+    throw new Error('Something wrong with update current user category');
   }
 }
 
@@ -60,5 +75,6 @@ module.exports = {
   createNewUser,
   getUserByEmailAndUsername,
   getUserByEmailOrUsername,
+  updateCurrentUserCategory,
   getUserById,
 };

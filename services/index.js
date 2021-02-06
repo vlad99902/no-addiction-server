@@ -14,6 +14,7 @@ const {
   createNewUser,
   getUserByEmailOrUsername,
   getUserById,
+  updateCurrentUserCategory,
 } = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
 const {
@@ -43,4 +44,5 @@ module.exports = {
   getAllCategories,
   getUserById,
   getCategoriesWithCurrent,
+  updateCurrentUserCategory,
 };

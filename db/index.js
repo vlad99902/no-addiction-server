@@ -14,6 +14,7 @@ const {
   getUserByUsername,
   getUserByEmailOrUsername,
   getUserById,
+  updateCurrentUserCategory,
 } = require('./users');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes');
 const {
@@ -41,6 +42,7 @@ module.exports = {
   getUserByEmail,
   getUserByUsername,
   getUserByEmailOrUsername,
+  updateCurrentUserCategory,
   getCurrentCategoriesById,
   getAllCategories,
 };
