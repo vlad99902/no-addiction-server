@@ -16,6 +16,10 @@ const {
   getUserById,
 } = require('./users.service');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes.service');
+const {
+  getCategoriesWithCurrent,
+  getAllCategories,
+} = require('./categories.service');
 
 module.exports = {
   getAllUsers,
@@ -32,5 +36,7 @@ module.exports = {
   getUserByEmailAndUsername,
   createNewUser,
   getUserByEmailOrUsername,
+  getAllCategories,
   getUserById,
+  getCategoriesWithCurrent,
 };

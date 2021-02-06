@@ -16,6 +16,7 @@ const {
   getUserById,
 } = require('./users');
 const { getAllQuotes, getAllBadOrNotQuotes } = require('./quotes');
+const { getCurrentCategoriesById, getAllCategories } = require('./categories');
 
 module.exports = {
   getAllTimers,
@@ -33,4 +34,6 @@ module.exports = {
   getUserByEmail,
   getUserByUsername,
   getUserByEmailOrUsername,
+  getCurrentCategoriesById,
+  getAllCategories,
 };

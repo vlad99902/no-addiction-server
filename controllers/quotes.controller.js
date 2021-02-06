@@ -16,17 +16,6 @@ class QuotesController {
       res.status(500).json({ message: String(error) });
     }
   }
-
-  async getAllBadOrNotQuotes(req, res) {
-    try {
-      const isBad = req.params.isbad;
-
-      const quotes = await services.getAllBadOrNotQuotes(isBad);
-      res.send(quotes);
-    } catch (error) {
-      res.status(500).json({ message: String(error) });
-    }
-  }
 }
 
 module.exports = new QuotesController();

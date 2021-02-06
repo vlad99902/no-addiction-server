@@ -7,6 +7,9 @@ const usersRouter = require('./routes/users.routes');
 const timersRouter = require('./routes/timers.routes');
 const quotesRoter = require('./routes/quotes.routes');
 const authRouter = require('./routes/auth.routes');
+const categoriesRouter = require('./routes/categories.routes');
+
+const authMiddleware = require('./middleware/auth.middleware');
 
 const passportGoogle = require('./middleware/passportGoogle.middleware');
 
@@ -48,6 +51,7 @@ app.use('/api/users', usersRouter);
 app.use('/api', authRouter);
 app.use('/api/timers', timersRouter);
 app.use('/api/quotes', quotesRoter);
+app.use('/api/categories', categoriesRouter);
 
 app.get('*', (req, res) => {
   res.send('Route not found');
