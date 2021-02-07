@@ -29,14 +29,23 @@ class AuthController {
       }
 
       const hashedPassword = await bcript.hash(password, 12);
-      await services.createNewUser(username, email, hashedPassword);
-
+      const registredUser = await services.createNewUser(
+        username,
+        email,
+        hashedPassword,
+      );
+      //add current cat for user (default 1)
+      await services.addCurrentCategory(registredUser._id, 1);
       //get token to new user
       //TODO make a function ERROR!!!! with function get user
-      const user = await services.getUserByEmailOrUsername(email, username);
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: '1d',
-      });
+
+      const token = jwt.sign(
+        { userId: registredUser._id },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: '1d',
+        },
+      );
 
       res.status(201).json({
         message: `User ${username || email} registred successfully`,
