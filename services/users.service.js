@@ -70,12 +70,22 @@ async function updateCurrentUserCategory(userId, categoryId) {
   }
 }
 
-async function changeUserHashPassword(userId, newHashPassword) {
+async function updateUserHashPassword(userId, newHashPassword) {
   try {
-    const currentHashPassword = await db.getUserHashPassword(userId);
     const result = await db.updateUserHashPassword(userId, newHashPassword);
+    return result;
   } catch (error) {
-    throw new Error('Something wrong with change user password');
+    throw new Error(`Something wrong with change user password ${id}`);
+  }
+}
+
+async function getUserHashPassword(userId) {
+  try {
+    const res = await db.getUserById(userId);
+    const currentHashPassword = res.rows[0].hash_password;
+    return currentHashPassword;
+  } catch (error) {
+    throw new Error(`Something wrong with get user password ${id}`);
   }
 }
 
@@ -86,4 +96,6 @@ module.exports = {
   getUserByEmailOrUsername,
   updateCurrentUserCategory,
   getUserById,
+  getUserHashPassword,
+  updateUserHashPassword,
 };

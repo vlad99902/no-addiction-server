@@ -10,7 +10,8 @@ router.get('/currentUser', auth, usersController.getUserById);
 router.put(
   '/updateCurrentCategory',
   auth,
-  usersController.updateCurrentUserCategory,
+  usersController.updateCurrentUserCategory
 );
+router.put('/updateUserPassword', auth, usersController.updateUserHashPassword);
 
 module.exports = router;
