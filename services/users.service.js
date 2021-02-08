@@ -70,6 +70,15 @@ async function updateCurrentUserCategory(userId, categoryId) {
   }
 }
 
+async function changeUserHashPassword(userId, newHashPassword) {
+  try {
+    const currentHashPassword = await db.getUserHashPassword(userId);
+    const result = await db.updateUserHashPassword(userId, newHashPassword);
+  } catch (error) {
+    throw new Error('Something wrong with change user password');
+  }
+}
+
 module.exports = {
   getAllUsers,
   createNewUser,
