@@ -8,7 +8,7 @@ class AuthController {
       const { username, email, password } = req.body;
       const candidate = await services.getUserByEmailAndUsername(
         email,
-        username,
+        username
       );
 
       //check if email or username exists in db
@@ -32,7 +32,7 @@ class AuthController {
       const registredUser = await services.createNewUser(
         username,
         email,
-        hashedPassword,
+        hashedPassword
       );
       //add current cat for user (default 1)
       await services.addCurrentCategory(registredUser._id, 1);
@@ -44,7 +44,7 @@ class AuthController {
         process.env.JWT_SECRET,
         {
           expiresIn: '1d',
-        },
+        }
       );
 
       res.status(201).json({
@@ -70,7 +70,7 @@ class AuthController {
 
       const isPasswordMatch = await bcript.compare(
         password,
-        user.hash_password,
+        user.hash_password
       );
       if (!isPasswordMatch) {
         res.status(400).json({ message: 'Incorrent password' });
@@ -91,7 +91,6 @@ class AuthController {
       const token = jwt.sign({ userId: req.user._id }, process.env.JWT_SECRET, {
         expiresIn: '1d',
       });
-      // console.log('вмвым');
 
       // res.redirect('http://localhost:3001/' + token);
 
