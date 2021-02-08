@@ -12,7 +12,7 @@ async function getAllUsers() {
 async function createNewUser(username, email, hashedPassword) {
   try {
     const result = await db.createNewUser(username, email, hashedPassword);
-    return result;
+    return result.rows[0];
   } catch (error) {
     throw new Error(`Create new user error
     Sql error: ${error}`);
